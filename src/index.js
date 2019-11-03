@@ -3,6 +3,10 @@ import ReactDOM from 'react-dom';
 import deck from './Deck';
 import helpers from './Helpers'
 
+import { Badge, Button, Form, Input, Container, Col, Row } from 'reactstrap';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.js';
 import './index.css';
 
 /*
@@ -21,15 +25,15 @@ import './index.css';
  *
  */
 function Card(props){
-    const suitColor = props.suit === 'S' || props.suit === 'C' ? 'black' : 'red';
+    const suitColor = props.suit === 'S' || props.suit === 'C' ? 'dark' : 'danger';
     return(
-        <div
-            className={"card " + suitColor}
+        <Badge
+            color={suitColor}
             rank={props.rank}
             suit={props.suit}
         >
             {props.rank + props.suit}
-        </div>
+        </Badge>
     );
 }
 
@@ -92,9 +96,11 @@ class PokerHand extends React.Component{
 
     render(){
         return(
-            <div className="game-hand" key={this.props.key}>
-                {this.state.cards}
-            </div>
+            <Col>
+                <div className="game-hand" key={this.props.key}>
+                    {this.state.cards}
+                </div>
+            </Col>
         )
     }
 }
@@ -147,8 +153,8 @@ class Game extends React.Component{
     render(){
         let hands = this.state.hands;
         return(
-            <div className="game">
-                <div>
+            <Container className="game">
+                <Row>
                     <h2>Instructions:</h2>
                     <p>Introduce your cards: </p>   
                     <ul>
@@ -158,20 +164,21 @@ class Game extends React.Component{
                         <li>The second character represents the suit, valid characters are: `S`(pades), `H`(earts), `D`(iamonds), `C`(lubs)</li>
                     </ul>
                     <p>Example: "3D 5S JD AH 9C"</p>
-                </div>
+                </Row>
 
-                <div className="hands">
+                <Row className="hands">
                     { hands }
-                </div>
+                </Row>
 
-                <div className="controls">
-                    <form onSubmit={this.handleSubmit}>
-                        <input type="text" name="hand" placeholder="AH 3C 2H 6D 7C" value={this.state.newHandInput} onChange={this.handleInputChange} />
-                        <button type="submit">Add Hand</button>
-                    </form>
-                </div>
+                <Row className="controls">
+                    <Form onSubmit={this.handleSubmit}>
+                        <Input type="text" name="hand" placeholder="AH 3C 2H 6D 7C" value={this.state.newHandInput} onChange={this.handleInputChange} />
+                        
+                        <Button type="submit" color="danger">Add hand</Button>
+                    </Form>
+                </Row>
 
-            </div>
+            </Container>
         )
     }
 }

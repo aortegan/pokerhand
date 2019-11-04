@@ -1,6 +1,9 @@
 .game-hand{
     padding:20px;
-    border:1px solid #f2f2f2;
+    background-color: #f0f0f0;
+    border:1px solid #555;
+    border-radius:4px;
+    text-align: center;
 }
 
 .black{
@@ -9,4 +12,34 @@
 
 .red{
     color:red;
+}
+
+.controls{
+    width: 50%;
+    margin: 40px auto 0;
+}
+
+.controls form, .controls form .form-row{
+    width:100%;
+}
+
+.controls form .form-row{
+    margin-left:0px;
+}
+
+.controls button{
+    width:100%;
+}
+
+.setwinner-btn-row{
+    margin: 0 auto;
+    width:100%;
+}
+.setwinner-btn-col{
+    margin: 10px auto 0;
+    padding: 0 4px;
+}
+
+.messages{
+    margin: 40px auto 0;
 }

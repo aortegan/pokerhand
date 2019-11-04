@@ -32,10 +32,8 @@ deck.validateHand = (cards, ranks, suits) => {
     //console.log(validRanks);
     //console.log(validSuits);
 
-    return !validCards && !validRanks && !validSuits;
+    return !validCards && !validRanks && !validSuits ? true : false;
 }
-
-
 
 
 /*
@@ -217,6 +215,32 @@ deck.repeatedRanks = (ranks)=>{
 }
 
 
+/*
+ * 
+ *
+ *
+ */
+deck.setWinner = (hands) => {
+    let winner = 0;
+    let highest = 0;
+    let rankings = [];
+    
+    // Get the value of the ranking of each hand
+    rankings = hands.map( (hand,index) =>  {
+        return hand.ranking.value;
+    });
+
+    // Get the highest ranking
+    highest = Math.max.apply(null,rankings)
+    winner = rankings.filter(n => n === highest);
+
+    // If winner's length = 1
+    if(winner.length === 1){
+        return hands.find(hand => hand.ranking.value === winner[0]);
+    }
+
+    return 'working on it';
+}
 
 
 const compareNumbers = (a,b)=>{

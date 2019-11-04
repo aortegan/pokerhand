@@ -201,6 +201,15 @@ class Game extends React.Component{
 
     }
 
+    resetGame = () => {
+        this.setState({
+            hands: [],
+            players: 0,
+            newHandInput: '',
+            message: null,
+        })
+    }
+
     setWinner = (hands) => {
 
         // If 2 players or more exist: continue
@@ -287,7 +296,19 @@ class Game extends React.Component{
                             <li>The first character is the value of the card, valid characters are: `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `T`(en), `J`(ack), `Q`(ueen), `K`(ing), `A`(ce)</li>
                             <li>The second character represents the suit, valid characters are: `S`(pades), `H`(earts), `D`(iamonds), `C`(lubs)</li>
                         </ul>
-                        <p>Example: "3D 5S JD AH 9C"</p>
+                        <p>Examples:</p>
+                        <ol>
+                            <li>"2S 3D 4D 6C 7H" : "High Card"</li>
+                            <li>"2S 2D 4D 6C 7H" : "One pair"</li>
+                            <li>"2S 2D 4D 4C 7H" : "Two pair"</li>
+                            <li>"2S 2D 2C 6C 7H" : "Three of a kind"</li>
+                            <li>"2S 3D 4C 5C 6H" : "Straight"</li>
+                            <li>"2S 9S 4S 6S QS" : "Flush"</li>
+                            <li>"2S 6S 2C 6H 6D" : "Full House"</li>
+                            <li>"8S 2S 8C 8H AS" : "Four of a kind"</li>
+                            <li>"5C 8C 7C 4C 6C" : "Straight Flush"</li>
+                            <li>"QH TH AH KH JH" : "Royal Flush"</li>
+                        </ol>
                     </Col>
                 </Row>
 
@@ -308,7 +329,8 @@ class Game extends React.Component{
                     </Form>
                     <Row className="setwinner-btn-row">
                         <Col xs="12" className="setwinner-btn-col">
-                            <Button onClick={(hands) => this.setWinner(this.state.hands)}>Set a winner</Button>
+                            <Button color="primary" onClick={(hands) => this.setWinner(this.state.hands)} className="setwinner-btn">Set a winner</Button>
+                            <Button color="secondary" onClick={() => this.resetGame()}>Reset the game</Button>
                         </Col>
                     </Row>
                 </Row>

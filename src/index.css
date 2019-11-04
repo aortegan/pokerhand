@@ -1,17 +1,42 @@
+.game-title{
+    margin: 40px auto;
+    text-align:center;
+}
+.game-title h1{
+    display: inline-block;
+    margin: 0 30px;
+    font-size: 4rem;
+}
+
+.game-title img{
+    display:inline-block;
+    vertical-align: bottom;
+}
+
+.game-intro{
+    margin-bottom:40px;
+}
+
 .game-hand{
-    padding:20px;
-    background-color: #f0f0f0;
-    border:1px solid #555;
-    border-radius:4px;
+    padding:0;
     text-align: center;
 }
 
-.black{
-    color:black;
+.game-player, .game-ranking{
+    margin:15px auto;
+    text-align:center;
+    color:#ffc107;
 }
 
-.red{
-    color:red;
+.pokercard-img{
+    margin-bottom:2px
+}
+
+.hand-container{
+    margin-bottom:10px;
+    background-color: #21713e;
+    border: 1px solid #555;
+    border-radius: 4px;
 }
 
 .controls{

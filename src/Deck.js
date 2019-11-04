@@ -18,21 +18,22 @@ const deck = {};
  */
 deck.validateHand = (cards, ranks, suits) => {
     // These must be false to be valid
-    let validCards;
-    let validSuits; 
-    let validRanks; 
+    let numCards;
+    let wrongCards;
+    let wrongSuits; 
+    let wrongRanks; 
 
-    validCards = cards.some( card => card.length !== 2 || cards.filter(n => n === card).length !== 1 );
+    numCards = cards.length === 5 ? true : false;
 
-    validRanks = ranks.some( rank => rank < 2 || rank > 14 || isNaN(rank) );
+    // Check if cards are made of 2 characters and if there is no cards repeated
+    wrongCards = cards.some( card => card.length !== 2 || cards.filter(n => n === card).length !== 1 );
 
-    validSuits = suits.some( suit => suit !== 'S' && suit !== 'H' && suit !== 'D' && suit !== 'C' );
+    wrongRanks = ranks.some( rank => rank < 2 || rank > 14 || isNaN(rank) );
 
-    //console.log(validCards);
-    //console.log(validRanks);
-    //console.log(validSuits);
+    wrongSuits = suits.some( suit => suit !== 'S' && suit !== 'H' && suit !== 'D' && suit !== 'C' );
 
-    return !validCards && !validRanks && !validSuits ? true : false;
+
+    return numCards && !wrongCards && !wrongRanks && !wrongSuits ? true : false;
 }
 
 
@@ -173,15 +174,14 @@ deck.sameSuit = (suits)=>{
  * Output: boolean
  */
 deck.hasRepeatedRanks = (ranks)=>{
-    let repeats = false;
-    ranks.forEach((rank,index) => {
+    let repeats = ranks.map((rank,index) => {
         if(ranks.filter( n => n === rank).length > 1){
-            repeats = true;
+            return true;
         }else{
-            repeats = false;
+            return false;
         }
     });
-    return repeats;
+    return repeats.indexOf(true) !== -1 ? true : false;
 }
 
 
@@ -234,12 +234,7 @@ deck.setWinner = (hands) => {
     highest = Math.max.apply(null,rankings)
     winner = rankings.filter(n => n === highest);
 
-    // If winner's length = 1
-    if(winner.length === 1){
-        return hands.find(hand => hand.ranking.value === winner[0]);
-    }
-
-    return 'working on it';
+    return winner;
 }
 
 

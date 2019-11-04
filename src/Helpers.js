@@ -41,18 +41,6 @@ helpers.highestValue = (values)=>{
     return 0;
 }
 
-/*
- * repeatedValues
- * Given an array of numbers, return an array with the repeated values and the number of repetitions
- * Ex: input [1,3,5,1,5] -> Returns [{1,2},{5,2}]
- * 
- * Required data: values
- * Optional data: none 
- * Returns: array
- */
-helpers.repeatedValues = (values)=>{
-    return [];
-}
 
 
 export default helpers;

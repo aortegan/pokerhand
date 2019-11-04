@@ -10,13 +10,6 @@ import 'bootstrap/dist/js/bootstrap.js';
 import './index.css';
 
 
-/*
- * TODO:
- *
- * Unit tests
- *
- */
-
 class Image extends React.Component{
     render(){
         return(
@@ -29,6 +22,7 @@ class Image extends React.Component{
 /*
  * Card Component
  *
+ * Returns an image based on the card rank and suit
  */
 function Card(props){
 
@@ -41,6 +35,7 @@ function Card(props){
 /*
  * Poker Hand Component
  *
+ * Renders a hand of cards
  */
 class PokerHand extends React.Component{
 
@@ -69,6 +64,7 @@ class PokerHand extends React.Component{
 /*
  * Game Component
  *
+ * Contains the state of the game and handles events
  */
 class Game extends React.Component{
 
@@ -86,6 +82,7 @@ class Game extends React.Component{
     handleSubmit = (event) => {
         event.preventDefault();
 
+        // Get an array with separated cards
         let cardsStr = this.state.newHandInput.split(" ");
 
         // Array of Card components
@@ -157,18 +154,31 @@ class Game extends React.Component{
         allCards = allCards.concat(cardsStr);
         const repeatedCards = allCards.some( card => allCards.filter(n => n === card).length !== 1 );
 
-        // If new hand is valid, proceed
-        if( validHand && !repeatedCards){
+        // If new hand is valid and number of players not exceeded, proceed
+        if( validHand && !repeatedCards && this.state.players+1 <= 5 ){
 
             const hands = this.state.hands.slice();
             const players = this.state.players;
             
+            // Update game's state
             this.setState({
                 hands: hands.concat(new_hand),
                 players: players+1,
                 newHandInput: '',
                 message: null
             })
+        // If number of players exceeded, throw a warning
+        }else if( validHand && !repeatedCards && this.state.players+1 > 5 ){
+
+            let message = [
+                <Alert color="warning" key="1">
+                    You have reached the maximum number of players (5).
+                </Alert>
+            ]
+            this.setState({
+                message: message
+            }) 
+        // If hand input is not valid, throw an alert
         }else{
             let message = [
                 <Alert color="danger" key="1">
@@ -182,22 +192,26 @@ class Game extends React.Component{
     }
 
     handleInputChange = (event) => {
-
         event.preventDefault()
 
+        // When input field changes, update the game's state
         this.setState({
             newHandInput: event.target.value
         })
-        //console.log(event.target.value)
+
     }
 
     setWinner = (hands) => {
+
         // If 2 players or more exist: continue
         hands = hands.length > 1 ? this.state.hands.slice() : false;
-        if(hands){
+        if(hands && hands.length <= 5){
+
+            // Get an array with the winner (or winners if it's a tie)
             let result = deck.setWinner(hands);
             console.log(result);
 
+            // If there's a winner, announce the player number
             if(result.length === 1){
                 let winner = hands.find(hand => hand.ranking.value === result[0]);
 
@@ -208,7 +222,9 @@ class Game extends React.Component{
                 ]
                 this.setState({
                     message: message
-                })  
+                }) 
+
+            // If there's a tie, throw a warning
             }else{
                 let tie = hands.find(hand => hand.ranking.value === result[0]);
                 let message = [
@@ -220,7 +236,9 @@ class Game extends React.Component{
                     message: message
                 }) 
             }
+        // If number of players is ecxeeded, throw a warning   
         }else{
+
             let message = [
                 <Alert color="warning" key="3">
                     The minimum number of players is 2
@@ -233,7 +251,10 @@ class Game extends React.Component{
     }
 
     render(){
+
         let messages = this.state.message;
+
+        // Makes an array of PokerHand components based on game's state to be rendered in the game
         let hands = this.state.hands.map((hand,index)=>{
             return(
                 <PokerHand

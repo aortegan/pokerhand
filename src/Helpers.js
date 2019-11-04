@@ -14,18 +14,20 @@ const helpers = {};
  * Returns: boolean
  */
 helpers.correlativeValues = (ranks)=>{
+
+    // make an array with the difference between the ranks
     let diff = []
     let correlative = [];
     ranks.forEach((rank,index)=>{
         if( index < (ranks.length-1)){
             diff.push( rank - ranks[index+1] )
-            //console.log(rank - ranks[index+1])
-            //correlative = (rank - ranks[index+1]) !== 1 ? false : true;
         }
     });
 
-    correlative = diff.filter(n=>n===1);
-     
+    // Get only the differences = 1
+    correlative = diff.filter( n => n === 1);
+
+    // The result should be an array of 4 times the number 1
     return correlative.length === 4 ? true : false;
 }
 
@@ -37,9 +39,9 @@ helpers.correlativeValues = (ranks)=>{
  * Optional data: none 
  * Returns: int
  */
-helpers.highestValue = (values)=>{
-    return 0;
-}
+// helpers.highestValue = (values)=>{
+//     return 0;
+// }
 
 
 

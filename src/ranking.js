@@ -1,3 +1,8 @@
+/*
+ * Rankings 
+ * An array containing all the poker rankings and properties that will be used to filter
+ *
+ */
 const ranking = [
     {
         'value' : 1,

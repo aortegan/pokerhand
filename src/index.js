@@ -317,22 +317,24 @@ class Game extends React.Component{
                 </Row>
 
                 <Row className="controls">
-                    <Form onSubmit={this.handleSubmit}>
-                        <Row form>
-                            <Col xs="8">
-                                <Input type="text" name="hand" placeholder="AH 3C 2H 6D 7C" value={this.state.newHandInput} onChange={this.handleInputChange} maxLength={14}/>
-                            </Col>
-                            <Col xs="4">
-                                <Button type="submit" color="danger">Add hand</Button>
+                    <Col xs="12" sm={{size: 10, offset: 1}} md={{size: 8, offset: 2}} lg={{size: 6, offset: 3}}>
+                        <Form onSubmit={this.handleSubmit}>
+                            <Row form>
+                                <Col xs="8">
+                                    <Input type="text" name="hand" placeholder="AH 3C 2H 6D 7C" value={this.state.newHandInput} onChange={this.handleInputChange} maxLength={14}/>
+                                </Col>
+                                <Col xs="4">
+                                    <Button type="submit" color="danger">Add hand</Button>
+                                </Col>
+                            </Row>
+                        </Form>
+                        <Row className="setwinner-btn-row">
+                            <Col xs="12" className="setwinner-btn-col">
+                                <Button color="primary" onClick={(hands) => this.setWinner(this.state.hands)} className="setwinner-btn">Set a winner</Button>
+                                <Button color="secondary" onClick={() => this.resetGame()}>Reset the game</Button>
                             </Col>
                         </Row>
-                    </Form>
-                    <Row className="setwinner-btn-row">
-                        <Col xs="12" className="setwinner-btn-col">
-                            <Button color="primary" onClick={(hands) => this.setWinner(this.state.hands)} className="setwinner-btn">Set a winner</Button>
-                            <Button color="secondary" onClick={() => this.resetGame()}>Reset the game</Button>
-                        </Col>
-                    </Row>
+                    </Col>
                 </Row>
 
                 <Row className="messages">
